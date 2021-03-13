@@ -13,15 +13,21 @@ var char = {
     width: 128
 }
 
+var scene = {
+    bd: 60,
+}
+
 
 function init(){
     c = document.getElementById("canv")
     console.log($("main")[0])
     c.width = $("main")[0].offsetWidth
-    c.height = 300;
+    c.height = 600;
     ctx = c.getContext('2d')
 
     setInterval(function(){
+        ctx.clearRect(0,0,c.width,c.height)
+        sceneDraw()
         charecterDraw()
     },120)
 
@@ -30,6 +36,38 @@ function init(){
     char.posY = c.height-char.height
 
 }
+
+
+
+function sceneDraw(){
+
+    ctx.beginPath()
+    ctx.rect(0,0,c.width,c.height)
+    ctx.stroke();
+    ctx.closePath();
+
+    ctx.moveTo(0,0);
+    ctx.lineTo(scene.bd,scene.bd);
+    ctx.moveTo(c.width,0);
+    ctx.lineTo(c.width-scene.bd,scene.bd);
+    ctx.moveTo(0,c.height);
+    ctx.lineTo(scene.bd,c.height-scene.bd);
+    ctx.moveTo(c.width,c.height);
+    ctx.lineTo(c.width-scene.bd,c.height-scene.bd);
+
+    ctx.rect(scene.bd,scene.bd,c.width-(scene.bd*2),c.height-(scene.bd*2))
+    ctx.lineWidth = 2
+    ctx.strokeStyle = "black"
+    ctx.stroke();
+
+}
+
+
+
+
+
+
+
 
 //the animation frames for dif states are stored here
 var wFr = [document.getElementById("walk-1"),document.getElementById("walk-2"),document.getElementById("walk-3"),document.getElementById("walk-4"),document.getElementById("walk-5"),]
@@ -44,20 +82,14 @@ var frCntTalk = 0;
 
 function charecterDraw(){
 
-    ctx.clearRect(0,0,c.width,c.height)
 
-    ctx.beginPath()
-    ctx.rect(0,0,c.width,c.height);
-    ctx.fillStyle = "#ffe400";
-    ctx.closePath()
-    ctx.fill();
+
 
     //Code that changes location and animations given the state of the charecter
     if (char.state == "walk") {
         
 
         if (frCnt >= wFr.length){
-            console.log('over')
             frCnt = 0
         }
 
