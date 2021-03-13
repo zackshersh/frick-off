@@ -9,6 +9,7 @@ submitBtn.on('click',function(event){
             return { first: res, second: watsonApi(textInput[0].value) }
         }).then(both => {
             console.log(both)
+            ballResponse()
         })
 
     // responseChecker()
