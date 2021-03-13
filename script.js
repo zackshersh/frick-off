@@ -5,10 +5,8 @@ var submitBtn = inputForm.children('button')
 submitBtn.on('click',function(event){
     event.preventDefault();
     getResponse()
-    watsonApi()
+    watsonApi(textInput[0].value)
 
-
-   
 })
 
 var yesOrNo;
@@ -28,7 +26,7 @@ async function getResponse() {
 
 
 function watsonApi(question){
-
+    console.log(question)
     //Did not want to use xhr but couldnt figure out how to send the watson specific url and apikey with fetch or ajax
     var url = "https://api.us-south.natural-language-understanding.watson.cloud.ibm.com/instances/7cb89b9f-38db-412a-8c0f-2d5e93e53386/v1/analyze?version=2019-07-12";
     
@@ -50,8 +48,18 @@ function watsonApi(question){
 
         }};
     
+    // var data = `{
+    //     "text": "Should I get a dog?",
+    //     "features": {
+    //     "keywords": {
+    //         "limit": 3
+    //     }
+    //     }
+    // }`;
+
+    
     var data = `{
-        "text": "Should I get a dog?",
+        "text": "`+question+`",
         "features": {
         "keywords": {
             "limit": 3
