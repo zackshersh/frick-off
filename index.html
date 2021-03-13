@@ -4,13 +4,13 @@
 <head>
   <meta charset="UTF-8" />
   <title>Magic 8 Ball</title>
-  <!-- <link rel="stylesheet" type="text/css" href="./assets/css/jass.css" />
-  <link rel="stylesheet" type="text/css" href="./assets/css/style.css" /> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <main>
-    <h1>Magic 8 Ball</h1>     
+  <main class="container">
+    <h1 class="title">Magic 8 Ball</h1>     
     <hr />
 
     <h2>Go ahead, enter your question... at your own risk... </h2>
@@ -18,16 +18,16 @@
       <input type="text" class="form-input w-100" id="question-input" name="question-input" placeholder="Ask a 'yes' or 'no' question, here" />
       <button>Get an answer</button>
     </form>
-    <div class="card-body">
-        <textarea
-          readonly
-          id="answer"
-          placeholder="Your answer shall appear here"
-          aria-label="Generated Answer"
-        ></textarea>
-      </div>
-      <canvas style="margin: 0px;" id=canv></canvas>
+    <div id="answer"></div>
+    <canvas style="margin: 0px;" id=canv></canvas>
   </main>
+  <div id=charecterFrames style="display: none">
+    <img id="walk-1" src="char-frames/walk-1.png">
+    <img id="walk-2" src="char-frames/walk-2.png">
+    <img id="walk-3" src="char-frames/walk-3.png">
+    <img id="walk-4" src="char-frames/walk-4.png">
+    <img id="walk-5" src="char-frames/walk-5.png">
+  </div>
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="script.js"></script>
