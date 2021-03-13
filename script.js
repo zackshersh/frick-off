@@ -5,7 +5,13 @@ var submitBtn = inputForm.children('button')
 submitBtn.on('click',function(event){
     event.preventDefault();
     getResponse()
-    watsonApi(textInput[0].value)
+        .then(res => {
+            return { first: res, second: watsonApi(textInput[0].value) }
+        }).then(both => {
+            console.log(both)
+        })
+
+    // responseChecker()
 
 })
 
@@ -23,6 +29,8 @@ async function getResponse() {
         return data.answer
             
     }
+
+
 
 
 function watsonApi(question){
@@ -62,15 +70,17 @@ function watsonApi(question){
         "text": "`+question+`",
         "features": {
         "keywords": {
-            "limit": 3
+            "limit": 1
         }
         }
     }`;
     
     xhr.send(data);
 
+}
 
-    
-    
-    }
+
+function ballResponse(){
+
+}
 
