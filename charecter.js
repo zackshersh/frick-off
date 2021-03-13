@@ -14,10 +14,10 @@ var char = {
 }
 
 
-
 function init(){
     c = document.getElementById("canv")
-    c.width = 600;
+    console.log($("main")[0])
+    c.width = $("main")[0].offsetWidth
     c.height = 300;
     ctx = c.getContext('2d')
 
@@ -105,20 +105,18 @@ function charecterDraw(){
 
 var countDown;
 var waiting = false;
+var interval = 0;
 
 textInput.on("input",function(){
 
     char.state = "watch";
-    countDown = 15
-    console.log(countDown)
+    countDown = 30
 
     if(waiting == false) {
-        var interval = setInterval(function(){
+        interval = setInterval(function(){
             waiting = true;
             countDown--;
-            console.log(countDown)
-            if (countDown <= 0){
-                console.log("less")
+            if (countDown <= 0 && char.state != "talk"){
                 char.state = "walk"
                 countDown = 0;
                 clearInterval(interval);
@@ -127,7 +125,19 @@ textInput.on("input",function(){
         },100)
     }
 
+})
 
+submitBtn.on("click",function(event){
+    event.preventDefault();
+
+    console.log("submitted")
+
+    char.state = "talk"
+
+    setTimeout(function(){
+        clearInterval(interval)
+        char.state = "walk"
+    }, 5000)
 })
 
 
