@@ -8,13 +8,13 @@ var char = {
     posY: 0,
     state: "walk",
     walkDir: "left",
-    walkChng: 20,
+    walkChng: 24,
     height: 256,
     width: 128
 }
 
 var scene = {
-    bd: 60,
+    bd: 70,
 }
 
 
@@ -37,6 +37,18 @@ function init(){
 
 }
 
+document.addEventListener("keydown",function(event){
+    console.log(event.key)
+    if (event.key == "ArrowLeft"){
+        char.walkDir = "left"
+    } else if (event.key == "ArrowRight"){
+        char.walkDir = "right"
+    } else if (event.key == "ArrowUp"){
+        char.posY -= 2
+    } else if (event.key == "ArrowDown"){
+        char.posY += 2
+    }
+})
 
 
 function sceneDraw(){
@@ -44,6 +56,8 @@ function sceneDraw(){
     ctx.beginPath()
     ctx.rect(0,0,c.width,c.height)
     ctx.stroke();
+    ctx.fillStyle = "#ffe400"
+    ctx.fill();
     ctx.closePath();
 
     ctx.moveTo(0,0);
@@ -58,14 +72,11 @@ function sceneDraw(){
     ctx.rect(scene.bd,scene.bd,c.width-(scene.bd*2),c.height-(scene.bd*2))
     ctx.lineWidth = 2
     ctx.strokeStyle = "black"
+    ctx.fillStyle = "#ffe400"
+    ctx.fill();
     ctx.stroke();
 
 }
-
-
-
-
-
 
 
 
@@ -81,9 +92,6 @@ var frCntWatch = 0;
 var frCntTalk = 0;
 
 function charecterDraw(){
-
-
-
 
     //Code that changes location and animations given the state of the charecter
     if (char.state == "walk") {
@@ -126,19 +134,29 @@ function charecterDraw(){
         if (frCntTalk >= tlkFr.length){
             frCntTalk = 0
         }
-
-
         ctx.drawImage(tlkFr[frCntTalk],char.posX,char.posY,char.width,char.height)
 
         frCntTalk++;
-
     }
+
+
+        // loops through charecter pixels to turn from white to dif color
+        // var imageData = ctx.getImageData(char.posX,char.posY,char.width,char.height);
+        // var data = imageData.data
+        // for (var i=0;i<data.length;i+=4){
+        //     data[i] = 0
+        // }
+        // ctx.putImageData(imageData,char.posX,char.posY)
+        // ctx.globalCompositeOperation = "source-atop"
+
 }
 
 var countDown;
 var waiting = false;
 var interval = 0;
 
+
+//action when inputting text, switches state to watch and starts a countdown after which goes back to walking, coiuntdown reset on keystroke
 textInput.on("input",function(){
 
     char.state = "watch";
@@ -159,6 +177,7 @@ textInput.on("input",function(){
 
 })
 
+//when button is pressed charecter switches to talk state for 5 seconds 
 submitBtn.on("click",function(event){
     event.preventDefault();
 
