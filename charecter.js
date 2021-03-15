@@ -19,13 +19,24 @@ var scene = {
 
 
 function init(){
+
     c = document.getElementById("canv")
     console.log($("main")[0])
-    c.width = $("main")[0].offsetWidth
+    c.width = $("main")[0].offsetWidth - 40
     c.height = 600;
+
+
+    var mainH = $("main")[0].getBoundingClientRect().height;
+    var canvH =  c.getBoundingClientRect().height;
+    var otherElemH =  mainH - canvH;
+    c.height = window.innerHeight - otherElemH - 50;
+    console.log(mainH, canvH)
+    console.log(c.height)
+
+
     ctx = c.getContext('2d')
 
-    setInterval(function(){
+    var canvClock = setInterval(function(){
         ctx.clearRect(0,0,c.width,c.height)
         sceneDraw()
         charecterDraw()
@@ -37,18 +48,18 @@ function init(){
 
 }
 
-document.addEventListener("keydown",function(event){
-    console.log(event.key)
-    if (event.key == "ArrowLeft"){
-        char.walkDir = "left"
-    } else if (event.key == "ArrowRight"){
-        char.walkDir = "right"
-    } else if (event.key == "ArrowUp"){
-        char.posY -= 2
-    } else if (event.key == "ArrowDown"){
-        char.posY += 2
-    }
-})
+// document.addEventListener("keydown",function(event){
+//     console.log(event.key)
+//     if (event.key == "ArrowLeft"){
+//         char.walkDir = "left"
+//     } else if (event.key == "ArrowRight"){
+//         char.walkDir = "right"
+//     } else if (event.key == "ArrowUp"){
+//         char.posY -= 2
+//     } else if (event.key == "ArrowDown"){
+//         char.posY += 2
+//     }
+// })
 
 
 function sceneDraw(){

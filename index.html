@@ -9,16 +9,14 @@
 </head>
 
 <body>
-  <main class="container">
-    <h1 class="title">This little asshole</h1>     
-
-    <h2>Go ahead, enter your question... at your own risk... </h2>
-    <form id="user-questions">
-      <input type="text" class="input m-3" id="question-input" name="question-input" placeholder="Ask a 'yes' or 'no' question, here" />
-      <button class="button m-3">Get an answer</button>
+  <main class="container is-justify-content-center">
+    <h1 class="title is-1 pt-3" id="mainTitle">This Little A**hole</h1>     
+    <form id="user-questions" class="columns is-gapless m-3">
+      <input type="text" class="input column is-10 is-12-mobile pl-5" id="question-input" name="question-input" placeholder="Ask a 'yes' or 'no' question, here" />
+      <button class="button column is-2 is-12-mobile" id="question-btn">Get an answer</button>
     </form>
     <div id="answer"></div>
-    <canvas style="margin: 0px;" id=canv></canvas>
+    <canvas class="m-3" id=canv></canvas>
   </main>
   <div id=charecterFrames style="display: none">
     <img id="walk-1" src="char-frames/walk-1.png">
