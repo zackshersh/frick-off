@@ -5,9 +5,12 @@ const API_url= 'https://yesno.wtf/api'
             const { answer, image} = data;
             console.log(data);
             
+
             document.getElementById("ans").textContent = answer
-             
+            document.getElementById("img").src = image
         }
+
+        
 
         getResponse()
 

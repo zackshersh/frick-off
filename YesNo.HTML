@@ -7,12 +7,24 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Should I get married?</h1>
+    <h1>Should I get married??</h1>
 
-    <p>Expert Opinion: <span id="ans"></span><br />
-       <!--Resulting Meme: <span id="img"></span> -->
+    <p>Answer: <span id="ans"></span>
     </p>
 
-    <script src="scriptYoN.js"></script>
+    <script>
+        const API_url= 'https://yesno.wtf/api'
+        async function getResponse() {
+            const response = await fetch(API_url);
+            const data = await response.json();
+            const { answer} = data;
+            console.log(data.answer);
+            
+            document.getElementById("ans").textContent = answer
+            
+        }
+
+        getResponse()
+    </script>
 </body>
 </html>
