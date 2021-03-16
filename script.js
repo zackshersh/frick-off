@@ -9,6 +9,7 @@ submitBtn.on('click',function(event){
             return { first: res, second: watsonApi(textInput[0].value) }
         }).then(both => {
             console.log(both)
+            ballResponse()
         })
 
     // responseChecker()
@@ -56,24 +57,22 @@ function watsonApi(question){
 
         }};
     
-    // var data = `{
-    //     "text": "Should I get a dog?",
-    //     "features": {
-    //     "keywords": {
-    //         "limit": 3
-    //     }
-    //     }
-    // }`;
-
-    
+        
     var data = `{
         "text": "`+question+`",
         "features": {
         "keywords": {
-            "limit": 1
+            "limit": 3
         }
         }
     }`;
+
+    // var data = `{
+    //     "text": "`+question+`",
+    //     "features": {
+    //     "semantic_roles": {}
+    //     }
+    // }`;
     
     xhr.send(data);
 
