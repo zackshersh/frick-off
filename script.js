@@ -112,4 +112,5 @@ function shuffle(insults) {
 const yesNoResponse = yesOrNo
 yesNoResponse.replace("fuck", watsonResponse)
 
+
 //document.getElementById("ans").textContent = answer;
