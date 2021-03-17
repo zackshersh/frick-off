@@ -17,22 +17,29 @@ var scene = {
     bd: 70,
 }
 
+var otherElemH;
 
 function init(){
 
     c = document.getElementById("canv")
     console.log($("main")[0])
-    c.width = $("main")[0].offsetWidth - 40
+    c.width = $("main")[0].offsetWidth - 120
     c.height = 600;
 
 
     var mainH = $("main")[0].getBoundingClientRect().height;
     var canvH =  c.getBoundingClientRect().height;
-    var otherElemH =  mainH - canvH;
-    c.height = window.innerHeight - otherElemH - 50;
+    otherElemH =  mainH - canvH;
+    c.height = window.innerHeight - otherElemH - (window.innerHeight/20);
     console.log(mainH, canvH)
     console.log(c.height)
 
+    if(c.height+40 < char.height) {
+        char.height = char.height/2
+        char.width = char.width/2
+        char.walkChng = char.walkChng/2
+        scene.bd = scene.bd/2
+    }
 
     ctx = c.getContext('2d')
 
@@ -102,12 +109,14 @@ var frCnt = 0;
 var frCntWatch = 0;
 var frCntTalk = 0;
 
+
 function charecterDraw(){
+
 
     //Code that changes location and animations given the state of the charecter
     if (char.state == "walk") {
         
-
+        $("#response").remove()
         if (frCnt >= wFr.length){
             frCnt = 0
         }
@@ -148,7 +157,28 @@ function charecterDraw(){
         ctx.drawImage(tlkFr[frCntTalk],char.posX,char.posY,char.width,char.height)
 
         frCntTalk++;
+
+        if (frCntTalk == 1){
+            $("#response").remove()
+            var resposneDiv = $("<div>")
+            resposneDiv.css("position","absolute")
+            resposneDiv.css("left",char.posX+110)
+            resposneDiv.css("top",char.posY+otherElemH-30)
+            resposneDiv.attr("id","response")
+            resposneDiv.css("background-color","black")
+            resposneDiv.css("border","2px solid black")
+            resposneDiv.css("border-radius","10px")
+            resposneDiv.css("color","white")
+            resposneDiv.css("padding","10px")
+            resposneDiv.text("Fuck you dude, this is filler text")
+            $("main").append(resposneDiv)
+        }
+
+
     }
+
+
+
 
 
         // loops through charecter pixels to turn from white to dif color
@@ -202,7 +232,12 @@ submitBtn.on("click",function(event){
     }, 5000)
 })
 
+$("canvas").on("click",function(event){
+    var x = event.clientX;
+    var y = event.clientY;
 
+    if ()
+})
 
 
 
