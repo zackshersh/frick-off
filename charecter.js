@@ -10,7 +10,8 @@ var char = {
     walkDir: "left",
     walkChng: 24,
     height: 256,
-    width: 128
+    width: 128,
+    phrase: "",
 }
 
 var scene = {
@@ -170,7 +171,7 @@ function charecterDraw(){
             resposneDiv.css("border-radius","10px")
             resposneDiv.css("color","white")
             resposneDiv.css("padding","10px")
-            resposneDiv.text("Fuck you dude, this is filler text")
+            resposneDiv.text(char.phrase)
             $("main").append(resposneDiv)
         }
 
@@ -219,18 +220,18 @@ textInput.on("input",function(){
 })
 
 //when button is pressed charecter switches to talk state for 5 seconds 
-submitBtn.on("click",function(event){
-    event.preventDefault();
+// submitBtn.on("click",function(event){
+//     event.preventDefault();
 
-    console.log("submitted")
+//     console.log("submitted")
 
-    char.state = "talk"
+//     char.state = "talk"
 
-    setTimeout(function(){
-        clearInterval(interval)
-        char.state = "walk"
-    }, 5000)
-})
+//     setTimeout(function(){
+//         clearInterval(interval)
+//         char.state = "walk"
+//     }, 5000)
+// })
 
 
 

@@ -10,7 +10,6 @@ submitBtn.on('click',function(event){
         }).then(both => {
             console.log(both)
             console.log('hello')
-            response()
         })
 
     // responseChecker()
@@ -92,7 +91,7 @@ function watsonApi(question){
 
 var yesResponsesKeyword = [`"Yes you idiot, " + word + "s are great."`, `"Yes, you f*cking moron " + word + "s are the bomb, you'd make it dumb though."`]
 
-var noResponsesKeyword = [`"No, Are you kidding me? You and a " + word + "is the dumbest combination of things I've ever heard"`, `"No, never, you suck way too much for a " + word`]
+var noResponsesKeyword = [`"No, Are you kidding me? You and a " + word + " is the dumbest combination of things I've ever heard"`, `"No, never, you suck way too much for a " + word`]
 
 var yesResponsesNoKey = ["yes, now f*ck off", "sure, but f*ck you for asking", "god you're dumb, yes, of course"]
 
@@ -103,21 +102,44 @@ var noResponsesNoKey = ["No, that's a f*cking stupid idea","What the f*ck are yo
 function response(){
 
     var word = watsonKeyword
-    console.log(yesResponsesKeyword[0])
-    console.log(eval(yesResponsesKeyword[0]))
+
+    var responsePhrase;
+
     if (watsonKeyword == "nada"){
         if (yesOrNo == "yes"){
-            
+            console.log("RESPONSE ANSWER:")
+            console.log(yesResponsesNoKey[rndmNum(yesResponsesNoKey.length)])
+            responsePhrase = yesResponsesNoKey[rndmNum(yesResponsesNoKey.length)]
         } else {
-
+            console.log("RESPONSE ANSWER:")
+            console.log(noResponsesNoKey[rndmNum(noResponsesNoKey.length)])
+            responsePhrase = noResponsesNoKey[rndmNum(noResponsesNoKey.length)]
         }
     } else {
         if (yesOrNo == "yes"){
-
+            console.log("RESPONSE ANSWER:")
+            console.log(eval(yesResponsesKeyword[rndmNum(yesResponsesKeyword.length)]))
+            responsePhrase = eval(yesResponsesKeyword[rndmNum(yesResponsesKeyword.length)])
         } else {
-
+            console.log("RESPONSE ANSWER:")
+            console.log(eval(noResponsesKeyword[rndmNum(noResponsesKeyword.length)]))
+            responsePhrase = eval(noResponsesKeyword[rndmNum(noResponsesKeyword.length)])
         }
     }
+
+
+    //     event.preventDefault();
+
+//     console.log("submitted")
+
+    char.state = "talk"
+    char.phrase = responsePhrase
+
+    setTimeout(function(){
+        clearInterval(interval)
+        char.state = "walk"
+    }, 5000)
+
 }
 
 function rndmNum(max) {
