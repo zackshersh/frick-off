@@ -232,12 +232,6 @@ submitBtn.on("click",function(event){
     }, 5000)
 })
 
-$("canvas").on("click",function(event){
-    var x = event.clientX;
-    var y = event.clientY;
-
-    if ()
-})
 
 
 

@@ -9,7 +9,8 @@ submitBtn.on('click',function(event){
             return { first: res, second: watsonApi(textInput[0].value) }
         }).then(both => {
             console.log(both)
-            ballResponse()
+            console.log('hello')
+            response()
         })
 
     // responseChecker()
@@ -52,8 +53,20 @@ function watsonApi(question){
             var data = xhr.responseText
             var parsed = JSON.parse(data)
             console.log(parsed)
-            watsonKeyword = parsed.keywords[0].text
-            console.log(watsonKeyword)
+            if (parsed.keywords.length > 0) {
+                watsonKeyword = parsed.keywords[0].text
+                console.log(watsonKeyword)
+                console.log(yesOrNo)
+            } else {
+                watsonKeyword = "nada"
+                console.log("no keyword")
+            }
+
+            
+            
+            //RESPONSE CODE LAUNCHED FROM HERE BECAUSE BOTH APIS HAVE RESPONDED BY THE TIME THIS CODE IS REACHED
+            response()
+
 
         }};
     
@@ -75,15 +88,39 @@ function watsonApi(question){
     // }`;
     
     xhr.send(data);
-
 }
 
+var yesResponsesKeyword = [`"Yes you idiot, " + word + "s are great."`, `"Yes, you f*cking moron " + word + "s are the bomb, you'd make it dumb though."`]
 
-function ballResponse(){
+var noResponsesKeyword = [`"No, Are you kidding me? You and a " + word + "is the dumbest combination of things I've ever heard"`, `"No, never, you suck way too much for a " + word`]
 
+var yesResponsesNoKey = ["yes, now f*ck off", "sure, but f*ck you for asking", "god you're dumb, yes, of course"]
+
+var noResponsesNoKey = ["No, that's a f*cking stupid idea","What the f*ck are you thinking, no", "no.dumbass"]
+
+
+
+function response(){
+
+    var word = watsonKeyword
+    console.log(yesResponsesKeyword[0])
+    console.log(eval(yesResponsesKeyword[0]))
+    if (watsonKeyword == "nada"){
+        if (yesOrNo == "yes"){
+            
+        } else {
+
+        }
+    } else {
+        if (yesOrNo == "yes"){
+
+        } else {
+
+        }
+    }
 }
 
-function introModal(){
-    
-}
-
+function rndmNum(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+  
