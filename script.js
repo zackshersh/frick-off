@@ -4,6 +4,31 @@ var submitBtn = inputForm.children('button')
 
 submitBtn.on('click',function(event){
     event.preventDefault();
+
+
+    var pastQs = localStorage.getItem("pastQs")
+
+    if (typeof pastQs == "string") {
+
+        if (localStorage.getItem("pastQs").indexOf(textInput[0].value) != -1){
+            char.phrase = "You already asked me that, stop wasting my time."
+            char.state = "talk"
+            return;
+        }
+        var qsArray = JSON.parse(pastQs)
+        qsArray.push(textInput[0].value)
+        console.log(qsArray)
+        localStorage.setItem("pastQs",JSON.stringify(qsArray))
+    } else {
+        console.log("nothing")
+        var qsArrayNew = [textInput[0].value]
+        console.log(qsArrayNew)
+        localStorage.setItem("pastQs",JSON.stringify(qsArrayNew))
+    }
+
+    console.log(localStorage.getItem("pastQs").indexOf(textInput[0].value))
+
+
     getResponse()
         .then(res => {
             return { first: res, second: watsonApi(textInput[0].value) }
@@ -47,6 +72,10 @@ function watsonApi(question){
     
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
+            if (xhr.status == 422) {
+                char.state = "talk"
+                char.phrase = "What? You gotta ask me something longer if you want an answer idiot."
+            }
             console.log(xhr.status);
             console.log(xhr.responseText);
             var data = xhr.responseText
@@ -135,10 +164,7 @@ function response(){
     char.state = "talk"
     char.phrase = responsePhrase
 
-    setTimeout(function(){
-        clearInterval(interval)
-        char.state = "walk"
-    }, 5000)
+
 
 }
 

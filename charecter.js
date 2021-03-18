@@ -24,7 +24,7 @@ function init(){
 
     c = document.getElementById("canv")
     console.log($("main")[0])
-    c.width = $("main")[0].offsetWidth - 120
+    c.width = $("main")[0].offsetWidth - 40
     c.height = 600;
 
 
@@ -174,6 +174,11 @@ function charecterDraw(){
             resposneDiv.text(char.phrase)
             $("main").append(resposneDiv)
         }
+
+        setTimeout(function(){
+            clearInterval(interval)
+            char.state = "walk"
+        }, 5000)
 
 
     }
