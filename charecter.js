@@ -174,7 +174,7 @@ function charecterDraw(){
             var resposneDiv = $("<div>")
             resposneDiv.css("position","absolute")
             resposneDiv.css("left",char.posX+110)
-            resposneDiv.css("top",char.posY+otherElemH-30)
+            resposneDiv.css("top",char.posY-30)
             resposneDiv.attr("id","response")
             resposneDiv.css("background-color","black")
             resposneDiv.css("border","2px solid black")
@@ -182,7 +182,7 @@ function charecterDraw(){
             resposneDiv.css("color","white")
             resposneDiv.css("padding","10px")
             resposneDiv.text(char.phrase)
-            $("main").append(resposneDiv)
+            $("body").append(resposneDiv)
         }
 
         setTimeout(function(){
