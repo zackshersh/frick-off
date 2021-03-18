@@ -2,6 +2,7 @@ var inputForm = $("#user-questions")
 var textInput = inputForm.children('input')
 var submitBtn = inputForm.children('button')
 
+
 submitBtn.on('click',function(event){
     event.preventDefault();
 
@@ -170,5 +171,7 @@ function response(){
 
 function rndmNum(max) {
     return Math.floor(Math.random() * Math.floor(max));
-  }
+}
+
+
   
