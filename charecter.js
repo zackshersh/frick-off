@@ -10,13 +10,15 @@ var char = {
     walkDir: "left",
     walkChng: 24,
     height: 256,
-    width: 128
+    width: 128,
+    phrase: "",
 }
 
 var scene = {
     bd: 70,
 }
 
+var otherElemH;
 
 function init(){
 
@@ -25,14 +27,30 @@ function init(){
     c.width = $("main")[0].offsetWidth - 40
     c.height = 600;
 
+    c.width = window.innerWidth
+    c.height = window.innerHeight
 
-    var mainH = $("main")[0].getBoundingClientRect().height;
-    var canvH =  c.getBoundingClientRect().height;
-    var otherElemH =  mainH - canvH;
-    c.height = window.innerHeight - otherElemH - 50;
-    console.log(mainH, canvH)
-    console.log(c.height)
+    char.posY = c.height-char.height
 
+    // var mainH = $("main")[0].getBoundingClientRect().height;
+    // var canvH =  c.getBoundingClientRect().height;
+    // otherElemH =  mainH - canvH;
+    // c.height = window.innerHeight - otherElemH - (window.innerHeight/20);
+    // console.log(mainH, canvH)
+    // console.log(c.height)
+
+
+
+
+    var mainB = $("main")[0].getBoundingClientRect().bottom;
+
+    if (mainB > char.posY){
+        char.height = char.height/2
+        char.width = char.width/2
+        char.posY = c.height-char.height
+        char.walkChng = char.walkChng/2
+        scene.bd = 40
+    }
 
     ctx = c.getContext('2d')
 
@@ -44,7 +62,7 @@ function init(){
 
     ctx.imageSmoothingEnabled = false
 
-    char.posY = c.height-char.height
+
 
 }
 
@@ -102,12 +120,14 @@ var frCnt = 0;
 var frCntWatch = 0;
 var frCntTalk = 0;
 
+
 function charecterDraw(){
+
 
     //Code that changes location and animations given the state of the charecter
     if (char.state == "walk") {
         
-
+        $("#response").remove()
         if (frCnt >= wFr.length){
             frCnt = 0
         }
@@ -148,7 +168,33 @@ function charecterDraw(){
         ctx.drawImage(tlkFr[frCntTalk],char.posX,char.posY,char.width,char.height)
 
         frCntTalk++;
+
+        if (frCntTalk == 1){
+            $("#response").remove()
+            var resposneDiv = $("<div>")
+            resposneDiv.css("position","absolute")
+            resposneDiv.css("left",char.posX+110)
+            resposneDiv.css("top",char.posY-30)
+            resposneDiv.attr("id","response")
+            resposneDiv.css("background-color","black")
+            resposneDiv.css("border","2px solid black")
+            resposneDiv.css("border-radius","10px")
+            resposneDiv.css("color","white")
+            resposneDiv.css("padding","10px")
+            resposneDiv.text(char.phrase)
+            $("body").append(resposneDiv)
+        }
+
+        setTimeout(function(){
+            clearInterval(interval)
+            char.state = "walk"
+        }, 5000)
+
+
     }
+
+
+
 
 
         // loops through charecter pixels to turn from white to dif color
@@ -189,21 +235,59 @@ textInput.on("input",function(){
 })
 
 //when button is pressed charecter switches to talk state for 5 seconds 
-submitBtn.on("click",function(event){
-    event.preventDefault();
+// submitBtn.on("click",function(event){
+//     event.preventDefault();
 
-    console.log("submitted")
+//     console.log("submitted")
 
-    char.state = "talk"
+//     char.state = "talk"
 
-    setTimeout(function(){
-        clearInterval(interval)
-        char.state = "walk"
-    }, 5000)
-})
-
+//     setTimeout(function(){
+//         clearInterval(interval)
+//         char.state = "walk"
+//     }, 5000)
+// })
 
 
 
 
 init()
+
+
+var pageMain = $("main")
+var pgMainElem = pageMain[0]
+
+function layoutInit(){
+    pageMain.css("left", scene.bd+20)
+    pageMain.css("top", scene.bd+20)
+    pageMain.css("width", (window.innerWidth-(scene.bd*2)-40))
+}
+
+layoutInit()
+
+
+
+//this function handles reloading the page on page resize so things are better fit
+
+window.onresize = resize
+
+var resizeCountdown = 5;
+var counting = false
+
+function resize(){
+
+    // console.log('resizing')
+    resizeCountdown = 5
+    
+    if (counting == false){
+        setTimeout(function(){
+            counting = true;
+            // console.log(resizeCountdown)
+            resizeCountdown--;
+            if (resizeCountdown <= 0){
+                location.reload();
+            }
+        }, 1000)
+    }
+
+}

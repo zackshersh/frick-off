@@ -7,7 +7,9 @@
 }
 
 main {
-    padding: 10px
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
 }
 
 body {
@@ -15,6 +17,8 @@ body {
     width: 100vw;
     height: 100vh;
 }
+
+
 
 #question-input {
     background-color: #ffe400;
@@ -39,16 +43,29 @@ body {
 }
 
 #mainTitle {
+    font-family: 'EB Garamond', serif;
+    transform: scale(1,1.7);
+    font-weight: 500;
+    line-height: 80%;
     margin-block-start: 0px;
     margin-block-end: 0px;
     /* margin: 10px 0px 10px 0px */
-    color: black
+    color: black;
+    margin-bottom: 30px;
+    font-size: 35px
+}
+
+#canv {
+    position: absolute;
+    top: 0px;
 }
 
 
-@media only screen and (max-width: 1024px) {
+
+@media only screen and (min-width: 600px) {
     #mainTitle {
-        margin-left: 10px
+        font-size: 60px;
+        margin-bottom: 40px
     }
   }
 
